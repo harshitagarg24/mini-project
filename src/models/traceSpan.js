@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const tagSchema = new mongoose.Schema({
   key: { type: String, required: true },
@@ -59,7 +59,6 @@ const spanSchema = new mongoose.Schema({
   logs: [logSchema],
   status: {
     type: String,
-    enum: ['ok', 'error', 'client_error', 'server_error'],
     default: 'ok',
     index: true
   },
@@ -77,7 +76,6 @@ const spanSchema = new mongoose.Schema({
   },
   samplingReason: {
     type: String,
-    enum: ['always', 'error', 'slow', 'sampled', 'dropped'],
     default: 'sampled'
   },
   resource: {
@@ -97,4 +95,4 @@ spanSchema.index({ traceId: 1, startTime: -1 });
 spanSchema.index({ serviceName: 1, status: 1, startTime: -1 });
 spanSchema.index({ 'tags.key': 1, 'tags.value': 1 });
 
-module.exports = mongoose.model('TraceSpan', spanSchema);
+export default mongoose.model('TraceSpan', spanSchema);

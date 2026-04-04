@@ -28,6 +28,19 @@ export default function ProxyTest() {
       const data = await res.json();
       const endTime = Date.now();
       
+      if (!res.ok) {
+        setError(data.error || `Server error: ${res.status}`);
+        setResults(prev => [{
+          timestamp: new Date().toLocaleTimeString(),
+          url: url.length > 30 ? url.substring(0, 30) + '...' : url,
+          status: res.status,
+          latency: endTime - startTime,
+          success: false
+        }, ...prev].slice(0, 20));
+        setLoading(false);
+        return;
+      }
+      
       setResults(prev => [{
         timestamp: new Date().toLocaleTimeString(),
         url: url.length > 30 ? url.substring(0, 30) + '...' : url,

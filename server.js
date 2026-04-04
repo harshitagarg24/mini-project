@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import session from 'express-session';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 import { tracingMiddleware } from './src/middleware/tracing.js';
 import { samplingMiddleware } from './src/middleware/sampler.js';
 import { processInfoMiddleware } from './src/middleware/processInfo.js';
@@ -13,7 +14,10 @@ import authRoutes from './src/routes/auth.js';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 app.use(express.json());
 
 app.use(session({

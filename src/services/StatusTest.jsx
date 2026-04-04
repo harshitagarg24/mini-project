@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import { statusTest } from "../services/api";
-
-export default function StatusTest() {
-  const [code, setCode] = useState("");
-
-  const handleTest = async () => {
-    try {
-      await statusTest(code);
-    } catch (err) {
-      alert(`Status: ${code}`);
-=======
 import { useState } from 'react';
 import { simulateStatus } from '../services/api';
 
@@ -43,20 +30,10 @@ export default function StatusTest() {
       });
     } finally {
       setLoading(false);
->>>>>>> fa9b19fe (Added my project code)
     }
   };
 
   return (
-<<<<<<< HEAD
-    <div>
-      <h3>Force Status Code</h3>
-      <input onChange={(e) => setCode(e.target.value)} placeholder="Enter code" />
-      <button onClick={handleTest}>Test</button>
-    </div>
-  );
-}
-=======
     <div className="test-component">
       <h3>Force Status Code</h3>
       <p>Test error handling with different status codes</p>
@@ -69,7 +46,7 @@ export default function StatusTest() {
             value={statusCode}
             onChange={(e) => setStatusCode(e.target.value)}
             min="100"
-            min="600"
+            max="600"
             disabled={loading}
           />
         </label>
@@ -96,4 +73,3 @@ export default function StatusTest() {
     </div>
   );
 }
->>>>>>> fa9b19fe (Added my project code)

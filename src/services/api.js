@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://localhost:3000"
-});
-
-// Get user by ID (0, 1, 2)
-export const getUser = (id) => API.get(`/user/${id}`);
-
-// Edit user (only allowed for same user)
-export const editUser = (id) => API.get(`/user/${id}/edit`);
-
-// Delete user (only admin allowed)
-export const deleteUser = (id) => API.delete(`/user/${id}`);
-=======
 const API_BASE_URL = 'http://localhost:3000';
 
 const getAuthHeaders = () => {
@@ -106,4 +90,3 @@ export const testProxy = async (url) => {
 };
 
 export default apiClient;
->>>>>>> fa9b19fe (Added my project code)

@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-import { useState } from "react";
-import { delayTest } from "../services/api";
-
-export default function DelayTest() {
-  const [sec, setSec] = useState("");
-
-  const handleTest = async () => {
-    await delayTest(sec);
-    alert("Delay executed!");
-  };
-
-  return (
-    <div>
-      <h3>Simulate Delay</h3>
-      <input onChange={(e) => setSec(e.target.value)} placeholder="Seconds" />
-      <button onClick={handleTest}>Run</button>
-    </div>
-  );
-}
-=======
 import { useState } from 'react';
 import { simulateDelay } from '../services/api';
 
@@ -93,4 +72,3 @@ export default function DelayTest() {
     </div>
   );
 }
->>>>>>> fa9b19fe (Added my project code)

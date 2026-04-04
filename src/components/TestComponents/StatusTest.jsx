@@ -25,7 +25,7 @@ export default function StatusTest() {
         timestamp: new Date().toLocaleTimeString(),
         code: statusCode,
         status: res.ok ? 'Success' : 'Error',
-        message: res.ok ? 'OK' : (data.error || 'Failed')
+        message: typeof data === 'object' && data.message ? String(data.message) : (res.ok ? 'OK' : 'Failed')
       }, ...prev].slice(0, 20));
     } catch (err) {
       setError(err.message);

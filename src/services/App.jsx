@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import Logs from "./components/Logs";
-import DelayTest from "./components/DelayTest";
-import StatusTest from "./components/StatusTest";
-import ProxyTest from "./components/ProxyTest";
-
-function App() {
-  return (
-    <div>
-      <h1>Distributed Tracing Dashboard</h1>
-      <DelayTest />
-      <StatusTest />
-      <ProxyTest />
-      <Logs />
-=======
 import { useState } from 'react';
 import './App.css';
 
@@ -77,13 +62,8 @@ function App() {
         {activeTab === 'proxy' && <ProxyTest />}
         {activeTab === 'logs' && <Logs />}
       </main>
->>>>>>> fa9b19fe (Added my project code)
     </div>
   );
 }
 
-<<<<<<< HEAD
 export default App;
-=======
-export default App;
->>>>>>> fa9b19fe (Added my project code)
