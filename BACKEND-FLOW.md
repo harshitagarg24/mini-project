@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Distributed Tracing System - Backend Documentation
 
 ## Overview
@@ -1095,3 +1096,135 @@ module.exports = {
 3. **Machine Learning**: Predict slow requests using ML models
 4. **Multi-tenancy**: Add support for isolated trace data per tenant
 5. **Correlation Analysis**: Auto-detect relationships between traces
+=======
+# Distributed Tracing System - Backend Flow
+
+## Overview
+Backend handles authentication, serves trace data, and provides APIs for the frontend.
+
+## Architecture
+
+```
+Browser Request
+      ↓
+Express Server (Port 3000)
+      ↓
+Middleware Layers
+      ↓
+Route Handlers
+      ↓
+MongoDB Atlas
+      ↓
+Response to Client
+```
+
+## Middleware Stack
+
+1. **CORS** - Allows cross-origin requests from frontend
+2. **Express JSON** - Parses JSON request bodies
+3. **Express Session** - Manages sessions for Google OAuth
+4. **Passport.js** - Handles Google OAuth authentication
+5. **Custom Middlewares**:
+   - Tracing middleware - Adds trace headers
+   - Process info middleware - Adds process metadata
+   - Sampling middleware - Samples requests
+
+## API Routes
+
+### Authentication Routes
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| /api/auth/register | POST | Register new user with email/password |
+| /api/auth/login | POST | Login with email/password |
+| /api/auth/google | GET | Initiate Google OAuth |
+| /api/auth/google/callback | GET | Google OAuth callback |
+| /api/auth/me | GET | Get current user |
+
+### Traces Routes
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| /api/traces/service/:name | GET | Get traces by service |
+| /api/traces/trace/:id | GET | Get single trace |
+| /api/traces/stats | GET | Get trace statistics |
+| /api/traces/slow | GET | Get slow traces |
+| /api/traces/errors | GET | Get error traces |
+
+## Authentication Flow
+
+### Register Flow
+```
+1. User submits {name, email, password}
+2. Server checks if email exists
+3. Hash password with bcrypt (10 rounds)
+4. Save user to MongoDB users collection
+5. Generate JWT token (valid for 7 days)
+6. Return {token, user}
+```
+
+### Login Flow (Email/Password)
+```
+1. User submits {email, password}
+2. Server finds user by email
+3. Compare password with bcrypt
+4. Generate JWT token
+5. Return {token, user}
+```
+
+### Google OAuth Flow
+```
+1. User clicks "Continue with Google"
+2. Frontend redirects to /api/auth/google
+3. Server redirects to Google login page
+4. User logs in with Google
+5. Google calls back to /api/auth/google/callback
+6. Passport.js gets Google profile
+7. Server finds or creates user in MongoDB
+8. Generate JWT token
+9. Redirect to frontend with token
+```
+
+### Protected Routes
+```
+1. Request comes with Authorization header
+2. Server verifies JWT token
+3. Extract userId from token
+4. Allow or deny request
+```
+
+## Database (MongoDB Atlas)
+
+### Users Collection
+- email (unique)
+- password (hashed)
+- name
+- googleId (for Google users)
+- avatar
+- createdAt
+
+### Spans Collection (Trace Data)
+- traceId
+- spanId
+- serviceName
+- operationName
+- duration
+- status
+- And more trace data fields
+
+## Environment Variables
+- MONGODB_URI - Atlas connection string
+- JWT_SECRET - Secret for JWT signing
+- GOOGLE_CLIENT_ID - Google OAuth ID
+- GOOGLE_CLIENT_SECRET - Google OAuth secret
+- GOOGLE_CALLBACK_URL - OAuth redirect URI
+- PORT - Server port (3000)
+
+## Summary
+
+1. **Request** → Express processes through middleware
+2. **Auth** → Validate credentials or OAuth
+3. **Database** → MongoDB queries via Mongoose
+4. **Response** → JSON data returned to frontend
+5. **Token** → JWT for protected route security
+>>>>>>> fa9b19fe (Added my project code)

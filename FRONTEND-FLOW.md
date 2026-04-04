@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Distributed Tracing System - Frontend Documentation
 
 ## Overview
@@ -1553,3 +1554,169 @@ VITE_ENABLE_DEBUG_MODE=false
 8. **Keyboard Shortcuts**: Add keyboard navigation and shortcuts
 9. **Bookmarks**: Save favorite traces and filters
 10. **Search**: Full-text search across trace data
+=======
+# Distributed Tracing System - Frontend Flow
+
+## Overview
+Frontend is a React application that displays trace data, charts, and allows user authentication.
+
+## Architecture
+
+```
+React App (Browser)
+      ↓
+React Router
+      ↓
+Components (Pages)
+      ↓
+Context Providers (Auth, Theme, Tracing)
+      ↓
+API Client
+      ↓
+Backend API (Express)
+      ↓
+MongoDB Atlas
+```
+
+## Page Routes
+
+| Path | Page | Auth Required |
+|------|------|---------------|
+| / | Landing Page | No |
+| /login | Login Page | No |
+| /signup | Signup Page | No |
+| /dashboard | Dashboard | Yes |
+| /traces | Traces List | Yes |
+| /trace/:id | Trace Detail | Yes |
+| /test/delay | Delay Test | Yes |
+| /test/status | Status Test | Yes |
+| /test/proxy | Proxy Test | Yes |
+| /logs | Logs Viewer | Yes |
+
+## Authentication Flow
+
+### User Registration
+```
+1. Landing Page → Click "Get Started"
+2. Login Page → Click "Sign Up"
+3. Signup Page → Fill form {name, email, password}
+4. Click "Sign Up" button
+5. POST to /api/auth/register
+6. Server returns {token, user}
+7. Save to localStorage:
+   - token: JWT string
+   - user: user object
+   - isAuthenticated: "true"
+8. Redirect to /dashboard
+```
+
+### User Login (Email/Password)
+```
+1. Login Page → Fill form {email, password}
+2. Click "Sign In" button
+3. POST to /api/auth/login
+4. Server returns {token, user}
+5. Save to localStorage
+6. Redirect to /dashboard
+```
+
+### User Login (Google OAuth)
+```
+1. Login Page → Click "Continue with Google"
+2. Redirect to /api/auth/google
+3. Google OAuth page opens
+4. User logs in with Google
+5. Google redirects to callback
+6. Server creates/finds user → returns JWT
+7. Redirect to /login?token=xxx&user=xxx
+8. Login component extracts token/user
+9. Save to localStorage
+10. Redirect to /dashboard
+```
+
+### Logout
+```
+1. Click "Logout" in sidebar
+2. Clear localStorage:
+   - Remove token
+   - Remove user
+   - Remove isAuthenticated
+3. Redirect to Landing Page (/)
+```
+
+## Protected Routes Flow
+```
+1. User navigates to /dashboard
+2. ProtectedRoute component checks:
+   - localStorage.getItem('isAuthenticated')
+   - localStorage.getItem('token')
+3. If both exist → Show dashboard
+4. If either missing → Redirect to /login
+```
+
+## Dashboard Features
+
+### Metrics Cards (4 cards with click actions)
+1. **Total Traces** - Click → Shows all traces popup
+2. **Avg Duration** - Click → Shows request durations popup
+3. **Error Rate** - Click → Shows error traces popup
+4. **P99 Duration** - Click → Shows slowest 1% requests popup
+
+### Charts
+- **Area Chart** - Avg Duration over time
+- **Pie Chart** - Error vs Success rate
+- **Bar Chart** - API Performance comparison
+- **Heatmap** - Request activity by hour & status
+
+### Real-time Updates
+- Auto-refresh every 5 seconds
+- Shows last updated time
+- Change indicators on metrics when values change
+
+## API Client Flow
+
+### All API calls include JWT token:
+```
+Headers:
+{
+  "Content-Type": "application/json",
+  "Authorization": "Bearer <token>"
+}
+```
+
+### Trace Data Flow
+```
+1. Dashboard loads
+2. useTraces hook fetches /api/traces/service/:name
+3. useStats hook fetches /api/traces/stats
+4. Data stored in React state
+5. Charts and metrics render from data
+```
+
+## User Interactions
+
+### Click on Metrics Card → Opens Modal Popup
+- Shows relevant data in table
+- Summary cards at top
+- Close button or click outside to close
+
+### Click on Chart → Opens Detail Modal
+- Shows detailed data table
+- Same modal style as metrics
+
+### Heatmap
+- X-axis: Hours (0-23)
+- Y-axis: Status (Success, Error, Client Error)
+- Colors: Gray → Blue → Green → Yellow → Orange → Red
+
+## Summary
+
+1. **User** → Lands on Landing Page
+2. **Navigate** → Login or Signup
+3. **Authenticate** → Email/Password or Google
+4. **Store Token** → Save in localStorage
+5. **Access Dashboard** → Protected routes allow access
+6. **View Data** → Metrics, charts, heatmaps
+7. **Interact** → Click cards/charts for details
+8. **Logout** → Clear storage, return to landing
+>>>>>>> fa9b19fe (Added my project code)
