@@ -66,6 +66,10 @@ router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/login?error=auth_failed' }),
   async (req, res) => {
     try {
+      console.log('Callback - User:', req.user);
+      if (!req.user) {
+        return res.redirect('/login?error=no_user');
+      }
       const token = jwt.sign(
         { userId: req.user._id, email: req.user.email },
         JWT_SECRET,

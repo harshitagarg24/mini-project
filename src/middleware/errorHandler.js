@@ -1,4 +1,5 @@
 export function errorHandler(err, req, res, next) {
+  console.error('Error handler caught:', err);
   const traceContext = req.traceContext;
 
   const statusCode = err.statusCode || 500;

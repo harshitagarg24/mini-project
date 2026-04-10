@@ -43,5 +43,18 @@
     "concurrently": "^9.2.1",
     "nodemon": "^3.1.14",
     "vite": "^6.0.7"
-  }
+  },
+  "description": "��#\u0000 \u0000M\u0000i\u0000n\u0000i\u0000 \u0000P\u0000r\u0000o\u0000j\u0000e\u0000c\u0000t\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshitagarg24/mini-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harshitagarg24/mini-project/issues"
+  },
+  "homepage": "https://github.com/harshitagarg24/mini-project#readme"
 }

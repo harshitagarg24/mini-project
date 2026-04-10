@@ -34,10 +34,10 @@ app.use(tracingMiddleware);
 app.use(processInfoMiddleware);
 app.use(samplingMiddleware);
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://harshita_garg_db_user:harshita_2535@cluster0.gvxuvem.mongodb.net/tracing_db';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://gargharshita520_db_user:harshita0947@ac-no3onm4-shard-00-00.7beme74.mongodb.net:27017,ac-no3onm4-shard-00-01.7beme74.mongodb.net:27017,ac-no3onm4-shard-00-02.7beme74.mongodb.net:27017/?ssl=true&replicaSet=atlas-wnkb78-shard-0&authSource=admin&appName=Cluster0';
 
 mongoose.connect(MONGODB_URI, {
-  serverSelectionTimeoutMS: 5000,
+  serverSelectionTimeoutMS: 30000,
   socketTimeoutMS: 45000,
 })
 .then(() => console.log('Connected to MongoDB'))
